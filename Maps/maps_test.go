@@ -40,6 +40,25 @@ func TestAdd(t *testing.T) {
 	})
 }
 
+func TestUpdate(t *testing.T) {
+	d := Dictionary{"test": "this is just a test"}
+	d.Update("test", "no longer a normal test")
+
+	got, _ := d.Search("test")
+	want := "no longer a normal test"
+	AssertString(t, got, want)
+}
+
+func TestDelete(t *testing.T) {
+	d := Dictionary{"test": "this is just a test"}
+	d.Delete("test")
+
+	_, er := d.Search("test")
+	want := NotFoundError
+
+	AssertError(t, er, want)
+}
+
 func AssertString(t *testing.T, got, want string) {
 	t.Helper()
 	if got != want {

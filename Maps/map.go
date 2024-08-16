@@ -26,3 +26,23 @@ func (d Dictionary) Add(key, value string) DictionaryError {
 	d[key] = value
 	return None
 }
+
+func (d Dictionary) Update(key, newValue string) DictionaryError {
+	_, er := d.Search(key)
+	if er != None {
+		return er
+	}
+
+	d[key] = newValue
+	return None
+}
+
+func (d Dictionary) Delete(key string) DictionaryError {
+	_, er := d.Search(key)
+	if er != None {
+		return er
+	}
+
+	delete(d, key)
+	return None
+}
